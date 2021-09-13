@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="original_skeleton_code.py" />
-    <Compile Include="Paper1_AS_2020_Python3_Pub_0.0.0%281%29.py" />
+    <Compile Include="edited original code.py" />
     <Compile Include="Paper1_skeleton code - edit 2.py" />
     <Compile Include="Paper1_skeleton code - edit 1.py" />
     <Compile Include="Paper1_skeleton code.py" />
