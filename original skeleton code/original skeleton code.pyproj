@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b612e7fb-6a50-4132-86d5-320b04773ad1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Paper1_skeleton code - edit 2.py</StartupFile>
+    <StartupFile>Paper1_skeleton code - edit 3.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="original_skeleton_code.py" />
     <Compile Include="edited original code.py" />
+    <Compile Include="Paper1_skeleton code - edit 3.py" />
     <Compile Include="Paper1_skeleton code - edit 2.py" />
     <Compile Include="Paper1_skeleton code - edit 1.py" />
     <Compile Include="Paper1_skeleton code.py" />
