@@ -61,15 +61,23 @@ def EditImage(Grid, Header):
       Symbol = input("Enter the symbol you want to replace: ")
     while len(NewSymbol) != 1:
       NewSymbol = input("Enter the new symbol: ")
-    for ThisRow in range(Header.Height):
-      for ThisColumn in range(Header.Width):
-        if Grid[ThisRow][ThisColumn] == Symbol:
-          Grid[ThisRow][ThisColumn] = NewSymbol
-    DisplayImage(Grid, Header)
+    if SymbolExist(Grid,Header,Symbol)==True:
+        for ThisRow in range(Header.Height):
+          for ThisColumn in range(Header.Width):
+            if Grid[ThisRow][ThisColumn] == Symbol:
+              Grid[ThisRow][ThisColumn] = NewSymbol
+        DisplayImage(Grid, Header)
+    else:
+        DisplayError(('symbol',Symbol,'not found'))
     Answer = input("Do you want to make any further changes? (Y/N) ")
   return Grid
 
-def SymbolExist(Grid, Header):
+def SymbolExist(Grid, Header,Symbol):
+    for ThisRow in range(Header.Height):
+        for ThisColumn in range(Header.Width):
+            if Grid[ThisRow][ThisColumn]==Symbol:
+                return True
+    return False
 
 def ConvertChar(PixelValue):
   if PixelValue <= 32:
