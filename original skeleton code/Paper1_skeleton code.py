@@ -1,4 +1,3 @@
-
 # Skeleton Program for the AQA AS1 Summer 2020 examination
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA AS1 Programmer Team
@@ -174,7 +173,7 @@ def GetMenuOption():
     MenuOption = input("Enter your choice: ")
   return MenuOption
   
-def Graphics(): #DISPLAYS THE MENU
+def Graphics():
   Grid = [['' for Column in range(MAX_WIDTH)] for Row in range(MAX_HEIGHT)]
   Grid = ClearGrid(Grid)
   Header = FileHeader()

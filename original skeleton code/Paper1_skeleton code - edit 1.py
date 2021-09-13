@@ -1,4 +1,3 @@
-
 # Skeleton Program for the AQA AS1 Summer 2020 examination
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA AS1 Programmer Team
@@ -6,9 +5,13 @@
 
 # Version number: 0.0.0
 
+
+## Change Error Subroutine to replace with error codes.
+
 EMPTY_STRING = ""
 MAX_WIDTH = 100
 MAX_HEIGHT = 100
+ERROR_LIST=['unknown error','unknown file type','file not found','image data error']
 
 class FileHeader:
   def __init__(self):
@@ -17,8 +20,8 @@ class FileHeader:
     self.Height = MAX_HEIGHT
     self.FileType = EMPTY_STRING 
 
-def DisplayError(ErrorMessage):
-  print("Error: ", ErrorMessage)
+def DisplayError(ErrorCode):
+  print("Error #"+ str(ErrorCode), ERROR_LIST[ErrorCode])
 
 def PrintHeading(Heading):
   print(Heading)
@@ -95,7 +98,7 @@ def LoadGreyScaleImage(FileIn, Grid, Header):
         PixelValue = int(NextPixel)
         Grid[Row][Column] = ConvertChar(PixelValue)
   except:
-    DisplayError("Image data error")    
+    DisplayError(3)  #image data error #3
   return Grid
   
 def LoadAsciiImage(FileIn, Grid, Header):
@@ -107,7 +110,7 @@ def LoadAsciiImage(FileIn, Grid, Header):
         Grid[Row][Column] = ImageData[NextChar]
         NextChar += 1
   except:
-    DisplayError("Image data error")
+    DisplayError(3)
   return Grid
 
 def LoadFile(Grid, Header):
@@ -132,14 +135,14 @@ def LoadFile(Grid, Header):
       FileTypeOK = True
     FileIn.close()
     if not FileTypeOK:
-      DisplayError("Unknown file type")
+      DisplayError(1)# unknown file type #1
     else:
       DisplayImage(Grid, Header)
   except:
     if not FileFound:
-      DisplayError("File not found")
+      DisplayError(2) # file not found #2
     else:
-      DisplayError("Unknown error")
+      DisplayError(0) #unknown error #0
   return Grid, Header
 
 def SaveFile(Grid, Header):
@@ -174,7 +177,7 @@ def GetMenuOption():
     MenuOption = input("Enter your choice: ")
   return MenuOption
   
-def Graphics(): #DISPLAYS THE MENU
+def Graphics():
   Grid = [['' for Column in range(MAX_WIDTH)] for Row in range(MAX_HEIGHT)]
   Grid = ClearGrid(Grid)
   Header = FileHeader()

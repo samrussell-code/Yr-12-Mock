@@ -1,4 +1,3 @@
-
 # Skeleton Program for the AQA AS1 Summer 2020 examination
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA AS1 Programmer Team
@@ -10,32 +9,28 @@ EMPTY_STRING = ""
 MAX_WIDTH = 100
 MAX_HEIGHT = 100
 
-class FileHeader:
+class FileHeader: # reads variables from the metadata section heading each image file.
   def __init__(self):
-    self.Title = EMPTY_STRING
-    self.Width = MAX_WIDTH
-    self.Height = MAX_HEIGHT
-    self.FileType = EMPTY_STRING 
+    self.Title,self.Width,self.Height,self.FileType = EMPTY_STRING,MAX_WIDTH,MAX_HEIGHT,EMPTY_STRING
 
 def DisplayError(ErrorMessage):
   print("Error: ", ErrorMessage)
 
-def PrintHeading(Heading):
+def PrintHeading(Heading): #prints the = line spacings between the image to be displayed and the input line
   print(Heading)
   HeadingLength = len(Heading)
   for Position in range(1, HeadingLength + 1):
-    print('=', end='')
-  print()
+    print('=', end='\n')
 
-def DisplayImage(Grid, Header):
+def DisplayImage(Grid, Header): #displays the name of the image and then prints out the image character by character 
   print()
   PrintHeading(Header.Title)
   for ThisRow in range(Header.Height):
     for ThisColumn in range(Header.Width):
-      print(Grid[ThisRow][ThisColumn], end='')
+      print(Grid[ThisRow][ThisColumn], end='') #end means the print will not end with a newline but instead with an empty character
     print()
 
-def SaveImage(Grid, Header):
+def SaveImage(Grid, Header): #prints title, allows you to enter a new filename, then uses .write to create a new textfile.
   print("The current title of your image is: " + Header.Title)
   Answer = input("Do you want to use this as your filename? (Y/N) ")
   if Answer == "N" or Answer == "n":
@@ -50,7 +45,8 @@ def SaveImage(Grid, Header):
     FileOut.write('\n')
   FileOut.close()
 
-def EditImage(Grid, Header):
+def EditImage(Grid, Header): #prints the image, then does a similar getmenuoption to check size of answer
+#replaces symbol with newsymbol for every position in the array.
   DisplayImage(Grid, Header)
   Answer = EMPTY_STRING
   while Answer != "N":
@@ -87,7 +83,7 @@ def ConvertChar(PixelValue):
     AsciiChar = ' '
   return AsciiChar
 
-def LoadGreyScaleImage(FileIn, Grid, Header):
+def LoadGreyScaleImage(FileIn, Grid, Header): #file type that is stored in denary and converted to an ascii character by convertchar.
   try:
     for Row in range(Header.Height):
       for Column in range(Header.Width):
@@ -98,9 +94,11 @@ def LoadGreyScaleImage(FileIn, Grid, Header):
     DisplayError("Image data error")    
   return Grid
   
-def LoadAsciiImage(FileIn, Grid, Header):
+def LoadAsciiImage(FileIn, Grid, Header): #file type that has all the symbols stored on one line, and not converted.
+    #it is read all at once and only shifts down a column once the column width has been reached.
   try:
     ImageData = FileIn.readline()
+    print(ImageData)
     NextChar = 0
     for Row in range(Header.Height):
       for Column in range(Header.Width):
@@ -111,6 +109,8 @@ def LoadAsciiImage(FileIn, Grid, Header):
   return Grid
 
 def LoadFile(Grid, Header):
+# tries to open a textfile, then create a fields list by splitting the textfile up into items with every comma.
+#  textfiles are stored with metadata at the beginning, defining Header variables.
   FileFound = False
   FileTypeOK = False
   FileName = input("Enter filename to load: ")
@@ -119,6 +119,7 @@ def LoadFile(Grid, Header):
     FileFound = True
     HeaderLine = FileIn.readline()
     Fields = HeaderLine.split(',')
+    #reads every item in the list as a header variable
     Header.Title = Fields[0]
     Header.Width = int(Fields[1])
     Header.Height = int(Fields[2])
@@ -142,7 +143,7 @@ def LoadFile(Grid, Header):
       DisplayError("Unknown error")
   return Grid, Header
 
-def SaveFile(Grid, Header):
+def SaveFile(Grid, Header): #opens the new created text file and replaces the metadata in the file so it is valid to be opened
   FileName = input("Enter filename: ")
   FileOut = open(FileName + ".txt", 'w')
   FileOut.write(Header.Title + ',' + str(Header.Width) + ',' + str(Header.Height) + ',' + 'A' + '\n')
@@ -151,13 +152,13 @@ def SaveFile(Grid, Header):
       FileOut.write(Grid[Row][Column])
   FileOut.close()
 
-def ClearGrid(Grid):
+def ClearGrid(Grid): #replaces all the data inside of the grid with '.', resetting the grid to a default position
   for Row in range(MAX_HEIGHT):
     for Column in range(MAX_WIDTH):
       Grid[Row][Column] = '.'
   return Grid
    
-def DisplayMenu():
+def DisplayMenu(): #prints out the main menu
   print()
   print("Main Menu")
   print("=========")
@@ -168,19 +169,31 @@ def DisplayMenu():
   print("X - Exit program") 
   print()
 
-def GetMenuOption():
+def GetMenuOption(): #requests an input from the user that must be a single character in length, then returns the input
   MenuOption = EMPTY_STRING
   while len(MenuOption) != 1:
     MenuOption = input("Enter your choice: ")
   return MenuOption
   
-def Graphics(): #DISPLAYS THE MENU
-  Grid = [['' for Column in range(MAX_WIDTH)] for Row in range(MAX_HEIGHT)]
+def Graphics():
+
+################################## setting up grid, an empty 2d array of size max_width*max_height
+  Grid = []
+  for Row in range(MAX_HEIGHT):
+    Row = []
+    for Column in range(MAX_WIDTH):
+      Row.append('')
+    Grid.append(Row)
+  print(Grid)
+##################################
+
+
+  #Grid = [['' for Column in range(MAX_WIDTH)] for Row in range(MAX_HEIGHT)]
   Grid = ClearGrid(Grid)
-  Header = FileHeader()
+  Header = FileHeader() 
   ProgramEnd = False
   while not ProgramEnd:
-    DisplayMenu()
+    DisplayMenu() 
     MenuOption = GetMenuOption()
     if MenuOption == 'L':
       Grid, Header = LoadFile(Grid, Header)

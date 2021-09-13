@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b612e7fb-6a50-4132-86d5-320b04773ad1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>original_skeleton_code.py</StartupFile>
+    <StartupFile>Paper1_skeleton code - edit 1.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="original_skeleton_code.py" />
+    <Compile Include="Paper1_AS_2020_Python3_Pub_0.0.0%281%29.py" />
+    <Compile Include="Paper1_skeleton code - edit 1.py" />
+    <Compile Include="Paper1_skeleton code.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ascii.txt" />
+    <Content Include="greyscale.txt" />
+    <Content Include="image1.txt" />
+    <Content Include="image2.txt" />
+    <Content Include="image3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
